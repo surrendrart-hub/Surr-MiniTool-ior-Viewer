@@ -10,7 +10,6 @@ Fait partie de la collection **Surr Mini Tools** par [Surrendr](https://www.surr
 
 [**→ Tester l'IOR Viewer**](https://surrendrart-hub.github.io/Surr-MiniTool-ior-Viewer/)
 
-*(Activez GitHub Pages dans les paramètres du dépôt pour que ce lien fonctionne — voir [Déploiement](#déploiement).)*
 
 ---
 
