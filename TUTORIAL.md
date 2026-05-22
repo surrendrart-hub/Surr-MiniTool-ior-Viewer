@@ -211,4 +211,4 @@ Lance `publish.bat` (Windows) — il fait `git add . && git commit && git push` 
 
 ---
 
-Bon stuff ! Si tu construis quelque chose avec, tag **[@surrendrstudio](https://www.surrendr.studio)**.
+Bon stuff ! Si tu construis quelque chose avec, tag **[Surrendr](https://www.surrendr.art)**.

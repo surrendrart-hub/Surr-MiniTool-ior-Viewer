@@ -2,7 +2,7 @@
 
 > Mini-outil web pour visualiser en temps réel l'effet de l'**Indice de Réfraction (IOR)**, du **metalness**, du **roughness** et de la **transmission** d'un matériau PBR sur une théière 3D.
 
-Fait partie de la collection **Surr Mini Tools** par [Surrendr Studio](https://www.surrendr.studio).
+Fait partie de la collection **Surr Mini Tools** par [Surrendr](https://www.surrendr.art).
 
 ---
 
@@ -18,7 +18,7 @@ Fait partie de la collection **Surr Mini Tools** par [Surrendr Studio](https://w
 
 Une interface sombre avec accents rose fluo, une théière 3D animée et environ **300 matériaux IOR cliquables** : verres, métaux, gemmes, plastiques, liquides…
 
-![Aperçu](screenshots/ior-viewer-preview.png)
+![Aperçu](screenshots/screenshot.png)
 
 ---
 
@@ -123,17 +123,16 @@ Il initialise Git si nécessaire, configure le remote, demande un message de com
 ## Technologies
 
 - [Three.js r128](https://threejs.org/) — moteur 3D WebGL
-- `MeshPhysicalMaterial` + `RGBELoader` + `TeapotGeometry`
+- `MeshPhysicalMaterial` + `PMREMGenerator` + `TeapotGeometry`
 - HTML5 / CSS3 / JavaScript vanilla (aucun framework, aucun bundler)
 - Polices : [Inter](https://fonts.google.com/specimen/Inter) + [JetBrains Mono](https://fonts.google.com/specimen/JetBrains+Mono) (Google Fonts)
-- Données IOR : [pixelandpoly.com/ior.html](https://pixelandpoly.com/ior.html)
 
 ---
 
 ## Auteur
 
-Fait avec soin par **[Surrendr Studio](https://www.surrendr.studio)**.
+Fait avec soin par **[Surrendr](https://www.surrendr.art)**.
 
 ## Licence
 
-Tous droits réservés © Surrendr Studio — sauf mention contraire.
+Tous droits réservés © Surrendr — sauf mention contraire.
