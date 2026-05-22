@@ -1,0 +1,766 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#07070c">
+    <title>Surr — IOR Viewer</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+</head>
+<body>
+
+    <main class="main-layout">
+        <div class="left-content">
+
+            <div class="search-bar">
+                <svg class="search-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                    <circle cx="11" cy="11" r="7"></circle>
+                    <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+                </svg>
+                <input type="search" id="iorSearch" placeholder="Chercher un matériau ou une valeur d'IOR…" autocomplete="off" spellcheck="false">
+                <button type="button" id="iorSearchClear" class="search-clear" aria-label="Effacer la recherche">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                        <line x1="18" y1="6" x2="6" y2="18"></line>
+                        <line x1="6" y1="6" x2="18" y2="18"></line>
+                    </svg>
+                </button>
+                <span class="search-count" id="searchCount"></span>
+            </div>
+
+            <section class="table-container featured">
+                <h2>Matériaux PBR (Cliquables)</h2>
+                <p>Cliquez sur une ligne pour charger le matériau dans le simulateur.</p>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Matériau</th>
+                            <th>Indice de Réfraction (IOR)</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr class="clickable-row" data-name="Verre (Défaut)" data-type="dielectric" data-ior="1.50" data-color="#ffffff" data-roughness="0.0" data-metalness="0.0" data-transmission="1.0"><td><strong>Verre (Défaut)</strong></td><td class="ior-value">1.500</td></tr>
+                        <tr class="clickable-row" data-name="Diamant" data-type="dielectric" data-ior="2.41" data-color="#ffffff" data-roughness="0.0" data-metalness="0.0" data-transmission="1.0"><td><strong>Diamant</strong></td><td class="ior-value">2.418</td></tr>
+                        <tr class="clickable-row" data-name="Or" data-type="metal" data-ior="0.47" data-color="#FFD700" data-roughness="0.2" data-metalness="1.0" data-transmission="0.0"><td><strong>Or</strong></td><td class="ior-value">0.470</td></tr>
+                        <tr class="clickable-row" data-name="Aluminium" data-type="metal" data-ior="1.4" data-color="#c9ced4" data-roughness="0.2" data-metalness="1.0" data-transmission="0.0"><td><strong>Aluminium</strong></td><td class="ior-value">1.390</td></tr>
+                        <tr class="clickable-row" data-name="Cuivre" data-type="metal" data-ior="1.8" data-color="#b87333" data-roughness="0.2" data-metalness="1.0" data-transmission="0.0"><td><strong>Cuivre</strong></td><td class="ior-value">1.100</td></tr>
+                        <tr class="clickable-row" data-name="Plastique (Blanc)" data-type="dielectric" data-ior="1.46" data-color="#ffffff" data-roughness="0.5" data-metalness="0.0" data-transmission="0.0"><td><strong>Plastique (Blanc)</strong></td><td class="ior-value">1.460</td></tr>
+                        <tr class="clickable-row" data-name="Ivoire" data-type="dielectric" data-ior="1.54" data-color="#fffff0" data-roughness="0.4" data-metalness="0.0" data-transmission="0.0"><td><strong>Ivoire</strong></td><td class="ior-value">1.540</td></tr>
+                        <tr class="clickable-row" data-name="Glace" data-type="dielectric" data-ior="1.30" data-color="#ffffff" data-roughness="0.05" data-metalness="0.0" data-transmission="1.0"><td><strong>Glace</strong></td><td class="ior-value">1.309</td></tr>
+                    </tbody>
+                </table>
+            </section>
+
+            <div class="ior-grid">
+
+            <section class="table-container">
+                <h2>IOR - Matériaux Courants (Référence)</h2>
+                <table>
+                    <thead><tr><th>Matériau</th><th>IOR</th></tr></thead>
+                    <tbody>
+                        <tr><td>Acrylic glass</td><td class="ior-value">1.490 - 1.492</td></tr>
+                        <tr><td>Air</td><td class="ior-value">1.000</td></tr>
+                        <tr><td>Alcohol, Ethyl (grain)</td><td class="ior-value">1.360</td></tr>
+                        <tr><td>Aluminum</td><td class="ior-value">1.390 - 1.440</td></tr>
+                        <tr><td>Asphalt</td><td class="ior-value">1.635</td></tr>
+                        <tr><td>Beer</td><td class="ior-value">1.345</td></tr>
+                        <tr><td>Bronze</td><td class="ior-value">1.180</td></tr>
+                        <tr><td>Copper</td><td class="ior-value">1.100 - 2.430</td></tr>
+                        <tr><td>Crystal</td><td class="ior-value">2.000</td></tr>
+                        <tr><td>Diamond</td><td class="ior-value">2.418</td></tr>
+                        <tr><td>Emerald</td><td class="ior-value">1.560 - 1.605</td></tr>
+                        <tr><td>Eye, Lens</td><td class="ior-value">1.410</td></tr>
+                        <tr><td>Glass</td><td class="ior-value">1.500</td></tr>
+                        <tr><td>Glass, Pyrex</td><td class="ior-value">1.474</td></tr>
+                        <tr><td>Gold</td><td class="ior-value">0.470</td></tr>
+                        <tr><td>Ice</td><td class="ior-value">1.309</td></tr>
+                        <tr><td>Iron</td><td class="ior-value">2.950</td></tr>
+                        <tr><td>Ivory</td><td class="ior-value">1.540</td></tr>
+                        <tr><td>Lead</td><td class="ior-value">2.010</td></tr>
+                        <tr><td>Lucite</td><td class="ior-value">1.495</td></tr>
+                        <tr><td>Mercury (liquid)</td><td class="ior-value">1.620</td></tr>
+                        <tr><td>Milk</td><td class="ior-value">1.350</td></tr>
+                        <tr><td>Nickel</td><td class="ior-value">1.080</td></tr>
+                        <tr><td>Nylon</td><td class="ior-value">1.530</td></tr>
+                        <tr><td>Pearl</td><td class="ior-value">1.530 - 1.690</td></tr>
+                        <tr><td>Plastic</td><td class="ior-value">1.460</td></tr>
+                        <tr><td>Teflon</td><td class="ior-value">1.350 - 1.380</td></tr>
+                        <tr><td>Titanium</td><td class="ior-value">2.160</td></tr>
+                        <tr><td>Vodka</td><td class="ior-value">1.363</td></tr>
+                        <tr><td>Water (35 deg C)</td><td class="ior-value">1.325</td></tr>
+                    </tbody>
+                </table>
+            </section>
+
+            <section class="table-container">
+                <h2>IOR - Liste A</h2>
+                <table>
+                    <thead><tr><th>Matériau</th><th>IOR</th></tr></thead>
+                    <tbody>
+                        <tr><td>Acetone</td><td class="ior-value">1.360</td></tr>
+                        <tr><td>Acrylic glass</td><td class="ior-value">1.490 - 1.492</td></tr>
+                        <tr><td>Actinolite</td><td class="ior-value">1.618</td></tr>
+                        <tr><td>Agalmatoite</td><td class="ior-value">1.550</td></tr>
+                        <tr><td>Agate</td><td class="ior-value">1.544 - 1.553</td></tr>
+                        <tr><td>Agate, Moss</td><td class="ior-value">1.540</td></tr>
+                        <tr><td>Air</td><td class="ior-value">1.000</td></tr>
+                        <tr><td>Alcohol</td><td class="ior-value">1.329</td></tr>
+                        <tr><td>Alcohol, Ethyl (grain)</td><td class="ior-value">1.360</td></tr>
+                        <tr><td>Alcohol, Methyl (wood)</td><td class="ior-value">1.329</td></tr>
+                        <tr><td>Alexandrite</td><td class="ior-value">1.746 - 1.755</td></tr>
+                        <tr><td>Almandine</td><td class="ior-value">1.244</td></tr>
+                        <tr><td>Aluminum</td><td class="ior-value">1.244</td></tr>
+                        <tr><td>Aluminum Chloride</td><td class="ior-value">2.700</td></tr>
+                        <tr><td>Aluminum Oxide</td><td class="ior-value">1.665</td></tr>
+                        <tr><td>Amber</td><td class="ior-value">1.539 - 1.546</td></tr>
+                        <tr><td>Amblygonite</td><td class="ior-value">1.611</td></tr>
+                        <tr><td>Amethyst</td><td class="ior-value">1.532 - 1.554</td></tr>
+                        <tr><td>Ammolite</td><td class="ior-value">1.520 - 1.680</td></tr>
+                        <tr><td>Amorphous Selenium</td><td class="ior-value">2.920</td></tr>
+                        <tr><td>Anatase</td><td class="ior-value">2.490</td></tr>
+                        <tr><td>Andalusite</td><td class="ior-value">1.629 - 1.650</td></tr>
+                        <tr><td>Anhydrite</td><td class="ior-value">1.571</td></tr>
+                        <tr><td>Apatite</td><td class="ior-value">1.420 - 1.632</td></tr>
+                        <tr><td>Apophyllite</td><td class="ior-value">1.536</td></tr>
+                        <tr><td>Aquamarine</td><td class="ior-value">1.567</td></tr>
+                        <tr><td>Aragonite</td><td class="ior-value">1.530</td></tr>
+                        <tr><td>Argon</td><td class="ior-value">1.000</td></tr>
+                        <tr><td>Argonite</td><td class="ior-value">1.530</td></tr>
+                        <tr><td>Asphalt</td><td class="ior-value">1.635</td></tr>
+                        <tr><td>Augelite</td><td class="ior-value">1.574</td></tr>
+                        <tr><td>Axenite</td><td class="ior-value">1.674 - 1.704</td></tr>
+                        <tr><td>Axinite</td><td class="ior-value">1.675</td></tr>
+                        <tr><td>Azurite</td><td class="ior-value">1.730</td></tr>
+                    </tbody>
+                </table>
+            </section>
+
+            <section class="table-container">
+                <h2>IOR - Liste B</h2>
+                <table>
+                    <thead><tr><th>Matériau</th><th>IOR</th></tr></thead>
+                    <tbody>
+                        <tr><td>Barite</td><td class="ior-value">1.636</td></tr>
+                        <tr><td>Barytocalcite</td><td class="ior-value">1.684</td></tr>
+                        <tr><td>Beer</td><td class="ior-value">1.345</td></tr>
+                        <tr><td>Benitoite</td><td class="ior-value">1.757</td></tr>
+                        <tr><td>Benzene</td><td class="ior-value">1.501</td></tr>
+                        <tr><td>Beryl</td><td class="ior-value">1.570 - 1.600</td></tr>
+                        <tr><td>Beryl, Red</td><td class="ior-value">1.570 - 1.598</td></tr>
+                        <tr><td>Beryllonite</td><td class="ior-value">1.553</td></tr>
+                        <tr><td>Borax</td><td class="ior-value">1.446</td></tr>
+                        <tr><td>Brazilianite</td><td class="ior-value">1.603</td></tr>
+                        <tr><td>Bromine (liquid)</td><td class="ior-value">1.661</td></tr>
+                        <tr><td>Bronze</td><td class="ior-value">1.180</td></tr>
+                        <tr><td>Brownite</td><td class="ior-value">1.567</td></tr>
+                    </tbody>
+                </table>
+            </section>
+
+            <section class="table-container">
+                <h2>IOR - Liste C</h2>
+                <table>
+                    <thead><tr><th>Matériau</th><th>IOR</th></tr></thead>
+                    <tbody>
+                        <tr><td>Calcite</td><td class="ior-value">1.486</td></tr>
+                        <tr><td>Calspar</td><td class="ior-value">1.486 - 1.660</td></tr>
+                        <tr><td>Cancrinite</td><td class="ior-value">1.491</td></tr>
+                        <tr><td>Carbon Dioxide</td><td class="ior-value">1.000</td></tr>
+                        <tr><td>Carbon Disulfide</td><td class="ior-value">1.628</td></tr>
+                        <tr><td>Carbon Tetrachloride</td><td class="ior-value">1.460</td></tr>
+                        <tr><td>Carbonated Beverages</td><td class="ior-value">1.340</td></tr>
+                        <tr><td>Cassiterite</td><td class="ior-value">1.997</td></tr>
+                        <tr><td>Celestite</td><td class="ior-value">1.622</td></tr>
+                        <tr><td>Cerussite</td><td class="ior-value">1.804</td></tr>
+                        <tr><td>Ceylanite</td><td class="ior-value">1.770</td></tr>
+                        <tr><td>Chalcedony</td><td class="ior-value">1.544 - 1.553</td></tr>
+                        <tr><td>Chalk</td><td class="ior-value">1.510</td></tr>
+                        <tr><td>Chalybite</td><td class="ior-value">1.630</td></tr>
+                        <tr><td>Chlorine (gas)</td><td class="ior-value">1.001</td></tr>
+                        <tr><td>Chlorine (liquid)</td><td class="ior-value">1.385</td></tr>
+                        <tr><td>Chrome Green</td><td class="ior-value">2.400</td></tr>
+                        <tr><td>Chrome Red</td><td class="ior-value">2.420</td></tr>
+                        <tr><td>Chrome Tourmaline</td><td class="ior-value">1.610 - 1.640</td></tr>
+                        <tr><td>Chrome Yellow</td><td class="ior-value">2.310</td></tr>
+                        <tr><td>Chromium</td><td class="ior-value">2.970</td></tr>
+                        <tr><td>Chromium Oxide</td><td class="ior-value">2.705</td></tr>
+                        <tr><td>Chrysoberyl</td><td class="ior-value">1.745</td></tr>
+                        <tr><td>Chrysocolla</td><td class="ior-value">1.500</td></tr>
+                        <tr><td>Chrysoprase</td><td class="ior-value">1.534</td></tr>
+                        <tr><td>Cinnabar (Mecury Sulfide)</td><td class="ior-value">3.020</td></tr>
+                        <tr><td>Citrine</td><td class="ior-value">1.532</td></tr>
+                        <tr><td>Cleaner (all purpose)</td><td class="ior-value">1.293</td></tr>
+                        <tr><td>Clinohumite</td><td class="ior-value">1.625</td></tr>
+                        <tr><td>Clinozoisite</td><td class="ior-value">1.724</td></tr>
+                        <tr><td>Cobalt Blue</td><td class="ior-value">1.740</td></tr>
+                        <tr><td>Cobalt Green</td><td class="ior-value">1.970</td></tr>
+                        <tr><td>Cobalt Violet</td><td class="ior-value">1.710</td></tr>
+                        <tr><td>Colemanite</td><td class="ior-value">1.586</td></tr>
+                        <tr><td>Copper</td><td class="ior-value">1.100 - 2.430</td></tr>
+                        <tr><td>Copper Oxide</td><td class="ior-value">2.705</td></tr>
+                        <tr><td>Coral</td><td class="ior-value">1.486</td></tr>
+                        <tr><td>Cordierite</td><td class="ior-value">1.540</td></tr>
+                        <tr><td>Corundum</td><td class="ior-value">1.766</td></tr>
+                        <tr><td>Cranberry Juice (25%)</td><td class="ior-value">1.351</td></tr>
+                        <tr><td>Crocoite</td><td class="ior-value">2.310</td></tr>
+                        <tr><td>Cromite</td><td class="ior-value">2.160</td></tr>
+                        <tr><td>Crown Glass (impure)</td><td class="ior-value">1.485 - 1.755</td></tr>
+                        <tr><td>Crown Glass (pure)</td><td class="ior-value">1.500 - 1.540</td></tr>
+                        <tr><td>Cryolite</td><td class="ior-value">1.338</td></tr>
+                        <tr><td>Crysoberyl, Catseye</td><td class="ior-value">1.746 - 1.755</td></tr>
+                        <tr><td>Crystal</td><td class="ior-value">2.000</td></tr>
+                        <tr><td>Cubic Zirconia</td><td class="ior-value">2.150 - 2.180</td></tr>
+                        <tr><td>Cuprite</td><td class="ior-value">2.850</td></tr>
+                    </tbody>
+                </table>
+            </section>
+
+            <section class="table-container">
+                <h2>IOR - Liste D</h2>
+                <table>
+                    <thead><tr><th>Matériau</th><th>IOR</th></tr></thead>
+                    <tbody>
+                        <tr><td>Danburite</td><td class="ior-value">1.627 - 1.641</td></tr>
+                        <tr><td>Diamond</td><td class="ior-value">2.418</td></tr>
+                        <tr><td>Diopside</td><td class="ior-value">1.680</td></tr>
+                        <tr><td>Dolomite</td><td class="ior-value">1.503</td></tr>
+                        <tr><td>Dumortierite</td><td class="ior-value">1.686</td></tr>
+                    </tbody>
+                </table>
+            </section>
+
+            <section class="table-container">
+                <h2>IOR - Liste E</h2>
+                <table>
+                    <thead><tr><th>Matériau</th><th>IOR</th></tr></thead>
+                    <tbody>
+                        <tr><td>Ebonite</td><td class="ior-value">1.660</td></tr>
+                        <tr><td>Ekanite</td><td class="ior-value">1.600</td></tr>
+                        <tr><td>Elaeolite</td><td class="ior-value">1.532</td></tr>
+                        <tr><td>Emerald</td><td class="ior-value">1.560 - 1.605</td></tr>
+                        <tr><td>Emerald Catseye</td><td class="ior-value">1.560 - 1.605</td></tr>
+                        <tr><td>Emerald, Synth Flux</td><td class="ior-value">1.561</td></tr>
+                        <tr><td>Emerald, Synth Hydro</td><td class="ior-value">1.568</td></tr>
+                        <tr><td>Enstatite</td><td class="ior-value">1.663</td></tr>
+                        <tr><td>Epidote</td><td class="ior-value">1.733</td></tr>
+                        <tr><td>Ethanol</td><td class="ior-value">1.360</td></tr>
+                        <tr><td>Ethyl Alcohol</td><td class="ior-value">1.360</td></tr>
+                        <tr><td>Euclase</td><td class="ior-value">1.652</td></tr>
+                        <tr><td>Eye, Aqueous Humor</td><td class="ior-value">1.330</td></tr>
+                        <tr><td>Eye, Cornea</td><td class="ior-value">1.380</td></tr>
+                        <tr><td>Eye, Lens</td><td class="ior-value">1.410</td></tr>
+                        <tr><td>Eye, Vitreous Humor</td><td class="ior-value">1.340</td></tr>
+                    </tbody>
+                </table>
+            </section>
+
+            <section class="table-container">
+                <h2>IOR - Liste F</h2>
+                <table>
+                    <thead><tr><th>Matériau</th><th>IOR</th></tr></thead>
+                    <tbody>
+                        <tr><td>Fabulite</td><td class="ior-value">2.409</td></tr>
+                        <tr><td>Feldspar, Adventurine</td><td class="ior-value">1.532</td></tr>
+                        <tr><td>Feldspar, Albite</td><td class="ior-value">1.525</td></tr>
+                        <tr><td>Feldspar, Amazonite</td><td class="ior-value">1.525</td></tr>
+                        <tr><td>Feldspar, Labrodorite</td><td class="ior-value">1.565</td></tr>
+                        <tr><td>Feldspar, Microcline</td><td class="ior-value">1.525</td></tr>
+                        <tr><td>Feldspar, Oligoclase</td><td class="ior-value">1.539</td></tr>
+                        <tr><td>Feldspar, Orthoclase</td><td class="ior-value">1.525</td></tr>
+                        <tr><td>Flint Glass (impure)</td><td class="ior-value">1.523 - 1.925</td></tr>
+                        <tr><td>Flint Glass (pure)</td><td class="ior-value">1.600 - 1.620</td></tr>
+                        <tr><td>Flourite</td><td class="ior-value">1.433</td></tr>
+                        <tr><td>Fluoride</td><td class="ior-value">1.560</td></tr>
+                        <tr><td>Fluorite</td><td class="ior-value">1.434</td></tr>
+                        <tr><td>Formica</td><td class="ior-value">1.470</td></tr>
+                        <tr><td>Fused Quartz</td><td class="ior-value">1.460</td></tr>
+                    </tbody>
+                </table>
+            </section>
+
+            <section class="table-container">
+                <h2>IOR - Liste G</h2>
+                <table>
+                    <thead><tr><th>Matériau</th><th>IOR</th></tr></thead>
+                    <tbody>
+                        <tr><td>Gallium(III) Arsenide</td><td class="ior-value">3.927</td></tr>
+                        <tr><td>Gallium(III) Phosphide</td><td class="ior-value">3.500</td></tr>
+                        <tr><td>Garnet, Almandine</td><td class="ior-value">1.760</td></tr>
+                        <tr><td>Garnet, Almandite</td><td class="ior-value">1.790</td></tr>
+                        <tr><td>Garnet, Andradite</td><td class="ior-value">1.820</td></tr>
+                        <tr><td>Garnet, Demantiod</td><td class="ior-value">1.880 - 1.900</td></tr>
+                        <tr><td>Garnet, Grossular</td><td class="ior-value">1.720 - 1.800</td></tr>
+                        <tr><td>Garnet, Hessonite</td><td class="ior-value">1.745</td></tr>
+                        <tr><td>Garnet, Mandarin</td><td class="ior-value">1.790 - 1.800</td></tr>
+                        <tr><td>Garnet, Pyrope</td><td class="ior-value">1.730 - 1.760</td></tr>
+                        <tr><td>Garnet, Rhodolite</td><td class="ior-value">1.740 - 1.770</td></tr>
+                        <tr><td>Garnet, Spessartite</td><td class="ior-value">1.810</td></tr>
+                        <tr><td>Garnet, Tsavorite</td><td class="ior-value">1.739 - 1.744</td></tr>
+                        <tr><td>Garnet, Uvarovite</td><td class="ior-value">1.740 - 1.870</td></tr>
+                        <tr><td>Gaylussite</td><td class="ior-value">1.517</td></tr>
+                        <tr><td>Glass</td><td class="ior-value">1.500</td></tr>
+                        <tr><td>Glass, Albite</td><td class="ior-value">1.489</td></tr>
+                        <tr><td>Glass, Arsenic Trisulfide</td><td class="ior-value">2.040</td></tr>
+                        <tr><td>Glass, Crown</td><td class="ior-value">1.520</td></tr>
+                        <tr><td>Glass, Crown, Zinc</td><td class="ior-value">1.517</td></tr>
+                        <tr><td>Glass, Flint, 29% lead</td><td class="ior-value">1.569</td></tr>
+                        <tr><td>Glass, Flint, 55% lead</td><td class="ior-value">1.669</td></tr>
+                        <tr><td>Glass, Flint, 71% lead</td><td class="ior-value">1.805</td></tr>
+                        <tr><td>Glass, Flint, Dense</td><td class="ior-value">1.660</td></tr>
+                        <tr><td>Glass, Flint, Heaviest</td><td class="ior-value">1.890</td></tr>
+                        <tr><td>Glass, Flint, Heavy</td><td class="ior-value">1.655</td></tr>
+                        <tr><td>Glass, Flint, Lanthanum</td><td class="ior-value">1.800</td></tr>
+                        <tr><td>Glass, Flint, Light</td><td class="ior-value">1.580</td></tr>
+                        <tr><td>Glass, Flint, Medium</td><td class="ior-value">1.627</td></tr>
+                        <tr><td>Glass, Fused Silica</td><td class="ior-value">1.459</td></tr>
+                        <tr><td>Glass, Pyrex</td><td class="ior-value">1.474</td></tr>
+                        <tr><td>Glycerine</td><td class="ior-value">1.473</td></tr>
+                        <tr><td>Glycerol</td><td class="ior-value">1.473</td></tr>
+                        <tr><td>Gold</td><td class="ior-value">0.470</td></tr>
+                        <tr><td>Gypsium</td><td class="ior-value">1.519</td></tr>
+                    </tbody>
+                </table>
+            </section>
+
+            <section class="table-container">
+                <h2>IOR - Liste H</h2>
+                <table>
+                    <thead><tr><th>Matériau</th><th>IOR</th></tr></thead>
+                    <tbody>
+                        <tr><td>Hambergite</td><td class="ior-value">1.559</td></tr>
+                        <tr><td>Hauyn</td><td class="ior-value">1.490 - 1.505</td></tr>
+                        <tr><td>Hauynite</td><td class="ior-value">1.502</td></tr>
+                        <tr><td>Heaviest Flint Glass</td><td class="ior-value">1.890</td></tr>
+                        <tr><td>Heavy Flint Glass</td><td class="ior-value">1.650</td></tr>
+                        <tr><td>Helium</td><td class="ior-value">1.000</td></tr>
+                        <tr><td>Hematite</td><td class="ior-value">2.940</td></tr>
+                        <tr><td>Hemimorphite</td><td class="ior-value">1.614</td></tr>
+                        <tr><td>Hiddenite</td><td class="ior-value">1.655</td></tr>
+                        <tr><td>Honey, 13% water content</td><td class="ior-value">1.504</td></tr>
+                        <tr><td>Honey, 17% water content</td><td class="ior-value">1.494</td></tr>
+                        <tr><td>Honey, 21% water content</td><td class="ior-value">1.484</td></tr>
+                        <tr><td>Howlite</td><td class="ior-value">1.586</td></tr>
+                        <tr><td>Hydrogen (gas)</td><td class="ior-value">1.000</td></tr>
+                        <tr><td>Hydrogen (liquid)</td><td class="ior-value">1.097</td></tr>
+                        <tr><td>Hypersthene</td><td class="ior-value">1.670</td></tr>
+                    </tbody>
+                </table>
+            </section>
+
+            <section class="table-container">
+                <h2>IOR - Liste I</h2>
+                <table>
+                    <thead><tr><th>Matériau</th><th>IOR</th></tr></thead>
+                    <tbody>
+                        <tr><td>Ice</td><td class="ior-value">1.309</td></tr>
+                        <tr><td>Idocrase</td><td class="ior-value">1.713</td></tr>
+                        <tr><td>Iodine Crystal</td><td class="ior-value">3.340</td></tr>
+                        <tr><td>Iolite</td><td class="ior-value">1.522 - 1.578</td></tr>
+                        <tr><td>Iron</td><td class="ior-value">2.950</td></tr>
+                        <tr><td>Ivory</td><td class="ior-value">1.540</td></tr>
+                    </tbody>
+                </table>
+            </section>
+
+            <section class="table-container">
+                <h2>IOR - Liste J</h2>
+                <table>
+                    <thead><tr><th>Matériau</th><th>IOR</th></tr></thead>
+                    <tbody>
+                        <tr><td>Jade, Jadeite</td><td class="ior-value">1.640 - 1.667</td></tr>
+                        <tr><td>Jade, Nephrite</td><td class="ior-value">1.600 - 1.641</td></tr>
+                        <tr><td>Jadeite</td><td class="ior-value">1.665</td></tr>
+                        <tr><td>Jasper</td><td class="ior-value">1.540</td></tr>
+                        <tr><td>Jet</td><td class="ior-value">1.660</td></tr>
+                    </tbody>
+                </table>
+            </section>
+
+            <section class="table-container">
+                <h2>IOR - Liste K</h2>
+                <table>
+                    <thead><tr><th>Matériau</th><th>IOR</th></tr></thead>
+                    <tbody>
+                        <tr><td>Kornerupine</td><td class="ior-value">1.665</td></tr>
+                        <tr><td>Kunzite</td><td class="ior-value">1.660 - 1.676</td></tr>
+                        <tr><td>Kyanite</td><td class="ior-value">1.715</td></tr>
+                    </tbody>
+                </table>
+            </section>
+
+            <section class="table-container">
+                <h2>IOR - Liste L</h2>
+                <table>
+                    <thead><tr><th>Matériau</th><th>IOR</th></tr></thead>
+                    <tbody>
+                        <tr><td>Labradorite</td><td class="ior-value">1.560 - 1.572</td></tr>
+                        <tr><td>Lapis Gem</td><td class="ior-value">1.500</td></tr>
+                        <tr><td>Lapis Lazuli</td><td class="ior-value">1.500 - 1.550</td></tr>
+                        <tr><td>Lazulite</td><td class="ior-value">1.615</td></tr>
+                        <tr><td>Lead</td><td class="ior-value">2.010</td></tr>
+                        <tr><td>Lead Nitrate</td><td class="ior-value">1.782</td></tr>
+                        <tr><td>Leucite</td><td class="ior-value">1.509</td></tr>
+                        <tr><td>Light Flint Glass</td><td class="ior-value">1.575</td></tr>
+                        <tr><td>Liquid Carbon Dioxide</td><td class="ior-value">1.200</td></tr>
+                        <tr><td>Liquid Water (20deg C)</td><td class="ior-value">1.333</td></tr>
+                        <tr><td>Lucite</td><td class="ior-value">1.495</td></tr>
+                    </tbody>
+                </table>
+            </section>
+
+            <section class="table-container">
+                <h2>IOR - Liste M</h2>
+                <table>
+                    <thead><tr><th>Matériau</th><th>IOR</th></tr></thead>
+                    <tbody>
+                        <tr><td>Magnesite</td><td class="ior-value">1.515</td></tr>
+                        <tr><td>Malachite</td><td class="ior-value">1.655</td></tr>
+                        <tr><td>Meerschaum</td><td class="ior-value">1.530</td></tr>
+                        <tr><td>Mercury (liquid)</td><td class="ior-value">1.620</td></tr>
+                        <tr><td>Methanol</td><td class="ior-value">1.329</td></tr>
+                        <tr><td>Milk</td><td class="ior-value">1.350</td></tr>
+                        <tr><td>Moissanite</td><td class="ior-value">2.650 - 2.690</td></tr>
+                        <tr><td>Moldavite</td><td class="ior-value">1.500</td></tr>
+                        <tr><td>Moonstone</td><td class="ior-value">1.518 - 1.526</td></tr>
+                        <tr><td>Moonstone, Adularia</td><td class="ior-value">1.525</td></tr>
+                        <tr><td>Moonstone, Albite</td><td class="ior-value">1.535</td></tr>
+                        <tr><td>Morganite</td><td class="ior-value">1.585 - 1.594</td></tr>
+                        <tr><td>Mylar</td><td class="ior-value">1.650</td></tr>
+                    </tbody>
+                </table>
+            </section>
+
+            <section class="table-container">
+                <h2>IOR - Liste N</h2>
+                <table>
+                    <thead><tr><th>Matériau</th><th>IOR</th></tr></thead>
+                    <tbody>
+                        <tr><td>Natrolite</td><td class="ior-value">1.480</td></tr>
+                        <tr><td>Nephrite</td><td class="ior-value">1.600</td></tr>
+                        <tr><td>Nickel</td><td class="ior-value">1.080</td></tr>
+                        <tr><td>Nitrogen (gas)</td><td class="ior-value">1.000</td></tr>
+                        <tr><td>Nitrogen (liq)</td><td class="ior-value">1.205</td></tr>
+                        <tr><td>Nylon</td><td class="ior-value">1.530</td></tr>
+                    </tbody>
+                </table>
+            </section>
+
+            <section class="table-container">
+                <h2>IOR - Liste O</h2>
+                <table>
+                    <thead><tr><th>Matériau</th><th>IOR</th></tr></thead>
+                    <tbody>
+                        <tr><td>Obsidian</td><td class="ior-value">1.486 - 1.500</td></tr>
+                        <tr><td>Oil of Wintergreen</td><td class="ior-value">1.536</td></tr>
+                        <tr><td>Oil, Clove</td><td class="ior-value">1.535</td></tr>
+                        <tr><td>Oil, Lemon</td><td class="ior-value">1.481</td></tr>
+                        <tr><td>Oil, Neroli</td><td class="ior-value">1.482</td></tr>
+                        <tr><td>Oil, Orange</td><td class="ior-value">1.473</td></tr>
+                        <tr><td>Oil, Safflower</td><td class="ior-value">1.466</td></tr>
+                        <tr><td>Oil, vegetable (50deg C)</td><td class="ior-value">1.470</td></tr>
+                        <tr><td>Olivine</td><td class="ior-value">1.670</td></tr>
+                        <tr><td>Onyx</td><td class="ior-value">1.486</td></tr>
+                        <tr><td>Onyx Marble</td><td class="ior-value">1.486</td></tr>
+                        <tr><td>Opal</td><td class="ior-value">1.450</td></tr>
+                        <tr><td>Opal, Black</td><td class="ior-value">1.440 - 1.460</td></tr>
+                        <tr><td>Opal, Fire</td><td class="ior-value">1.430 - 1.460</td></tr>
+                        <tr><td>Opal, White</td><td class="ior-value">1.440 - 1.460</td></tr>
+                        <tr><td>Oregon Sunstone</td><td class="ior-value">1.560 - 1.572</td></tr>
+                        <tr><td>Oxygen (gas)</td><td class="ior-value">1.000</td></tr>
+                        <tr><td>Oxygen (liquid)</td><td class="ior-value">1.221</td></tr>
+                    </tbody>
+                </table>
+            </section>
+
+            <section class="table-container">
+                <h2>IOR - Liste P</h2>
+                <table>
+                    <thead><tr><th>Matériau</th><th>IOR</th></tr></thead>
+                    <tbody>
+                        <tr><td>Padparadja</td><td class="ior-value">1.760 - 1.773</td></tr>
+                        <tr><td>Painite</td><td class="ior-value">1.787</td></tr>
+                        <tr><td>Paraffin Wax</td><td class="ior-value">1.442 - 1.448</td></tr>
+                        <tr><td>Pearl</td><td class="ior-value">1.530 - 1.690</td></tr>
+                        <tr><td>Periclase</td><td class="ior-value">1.740</td></tr>
+                        <tr><td>Peristerite</td><td class="ior-value">1.525</td></tr>
+                        <tr><td>PET</td><td class="ior-value">1.575</td></tr>
+                        <tr><td>Petalite</td><td class="ior-value">1.502</td></tr>
+                        <tr><td>PETg</td><td class="ior-value">1.570</td></tr>
+                        <tr><td>Phenakite</td><td class="ior-value">1.650</td></tr>
+                        <tr><td>Phosgenite</td><td class="ior-value">2.117</td></tr>
+                        <tr><td>Plastic</td><td class="ior-value">1.460</td></tr>
+                        <tr><td>Platinum</td><td class="ior-value">2.330</td></tr>
+                        <tr><td>Plexiglas</td><td class="ior-value">1.500</td></tr>
+                        <tr><td>PMMA</td><td class="ior-value">1.489 - 1.490</td></tr>
+                        <tr><td>Polycarbonate</td><td class="ior-value">1.584</td></tr>
+                        <tr><td>Polystyrene</td><td class="ior-value">1.550</td></tr>
+                        <tr><td>Prase</td><td class="ior-value">1.540</td></tr>
+                        <tr><td>Prasiolite</td><td class="ior-value">1.540</td></tr>
+                        <tr><td>Prehnite</td><td class="ior-value">1.610</td></tr>
+                        <tr><td>Proustite</td><td class="ior-value">2.790</td></tr>
+                        <tr><td>Purpurite</td><td class="ior-value">1.840</td></tr>
+                        <tr><td>Pyrite</td><td class="ior-value">1.810</td></tr>
+                        <tr><td>Pyrope</td><td class="ior-value">1.740</td></tr>
+                    </tbody>
+                </table>
+            </section>
+
+            <section class="table-container">
+                <h2>IOR - Liste Q</h2>
+                <table>
+                    <thead><tr><th>Matériau</th><th>IOR</th></tr></thead>
+                    <tbody>
+                        <tr><td>Quartz</td><td class="ior-value">1.544 - 1.644</td></tr>
+                        <tr><td>Quartz, Fused</td><td class="ior-value">1.458</td></tr>
+                    </tbody>
+                </table>
+            </section>
+
+            <section class="table-container">
+                <h2>IOR - Liste R</h2>
+                <table>
+                    <thead><tr><th>Matériau</th><th>IOR</th></tr></thead>
+                    <tbody>
+                        <tr><td>Rhodizite</td><td class="ior-value">1.690</td></tr>
+                        <tr><td>Rhodochrisite</td><td class="ior-value">1.600</td></tr>
+                        <tr><td>Rhodonite</td><td class="ior-value">1.735</td></tr>
+                        <tr><td>Rock salt</td><td class="ior-value">1.516 - 1.544</td></tr>
+                        <tr><td>Rubber, Natural</td><td class="ior-value">1.519</td></tr>
+                        <tr><td>Ruby</td><td class="ior-value">1.757 - 1.779</td></tr>
+                        <tr><td>Rum, White</td><td class="ior-value">1.361</td></tr>
+                        <tr><td>Rutile</td><td class="ior-value">2.620</td></tr>
+                    </tbody>
+                </table>
+            </section>
+
+            <section class="table-container">
+                <h2>IOR - Liste S</h2>
+                <table>
+                    <thead><tr><th>Matériau</th><th>IOR</th></tr></thead>
+                    <tbody>
+                        <tr><td>Salt (NaCl)</td><td class="ior-value">1.544</td></tr>
+                        <tr><td>Sanidine</td><td class="ior-value">1.522</td></tr>
+                        <tr><td>Sapphire</td><td class="ior-value">1.757 - 1.779</td></tr>
+                        <tr><td>Sapphire, Star</td><td class="ior-value">1.760 - 1.773</td></tr>
+                        <tr><td>Scapolite</td><td class="ior-value">1.540</td></tr>
+                        <tr><td>Scapolite, Yellow</td><td class="ior-value">1.555</td></tr>
+                        <tr><td>Scheelite</td><td class="ior-value">1.920</td></tr>
+                        <tr><td>Selenium, Amorphous</td><td class="ior-value">2.920</td></tr>
+                        <tr><td>Serpentine</td><td class="ior-value">1.560</td></tr>
+                        <tr><td>Shampoo</td><td class="ior-value">1.362</td></tr>
+                        <tr><td>Shell</td><td class="ior-value">1.530</td></tr>
+                        <tr><td>Shower gel</td><td class="ior-value">1.510</td></tr>
+                        <tr><td>Silicon</td><td class="ior-value">4.010 - 4.240</td></tr>
+                        <tr><td>Sillimanite</td><td class="ior-value">1.658</td></tr>
+                        <tr><td>Silver</td><td class="ior-value">0.180 - 1.350</td></tr>
+                        <tr><td>Sinhalite</td><td class="ior-value">1.699</td></tr>
+                        <tr><td>Smaragdite</td><td class="ior-value">1.608</td></tr>
+                        <tr><td>Smithsonite</td><td class="ior-value">1.621</td></tr>
+                        <tr><td>Sodalite</td><td class="ior-value">1.483</td></tr>
+                        <tr><td>Sodium Chloride</td><td class="ior-value">1.544 - 1.644</td></tr>
+                        <tr><td>Spessarite</td><td class="ior-value">1.790 - 1.810</td></tr>
+                        <tr><td>Sphalerite</td><td class="ior-value">2.368</td></tr>
+                        <tr><td>Sphene</td><td class="ior-value">1.885</td></tr>
+                        <tr><td>Spinel</td><td class="ior-value">1.712 - 1.717</td></tr>
+                        <tr><td>Spinel, Blue</td><td class="ior-value">1.712 - 1.747</td></tr>
+                        <tr><td>Spinel, Red</td><td class="ior-value">1.708 - 1.735</td></tr>
+                        <tr><td>Spodumene</td><td class="ior-value">1.650</td></tr>
+                        <tr><td>Star Ruby</td><td class="ior-value">1.760 - 1.773</td></tr>
+                        <tr><td>Staurolite</td><td class="ior-value">1.739</td></tr>
+                        <tr><td>Steatite</td><td class="ior-value">1.539</td></tr>
+                        <tr><td>Steel</td><td class="ior-value">2.500</td></tr>
+                        <tr><td>Stichtite</td><td class="ior-value">1.520</td></tr>
+                        <tr><td>Strontium Titanate</td><td class="ior-value">2.410</td></tr>
+                        <tr><td>Styrofoam</td><td class="ior-value">1.595</td></tr>
+                        <tr><td>Styrene</td><td class="ior-value">1.519</td></tr>
+                        <tr><td>Sugar Solution 30%</td><td class="ior-value">1.380</td></tr>
+                        <tr><td>Sugar Solution 80%</td><td class="ior-value">1.490</td></tr>
+                        <tr><td>Sulphur</td><td class="ior-value">1.960</td></tr>
+                        <tr><td>Synthetic Spinel</td><td class="ior-value">1.730</td></tr>
+                    </tbody>
+                </table>
+            </section>
+
+            <section class="table-container">
+                <h2>IOR - Liste T</h2>
+                <table>
+                    <thead><tr><th>Matériau</th><th>IOR</th></tr></thead>
+                    <tbody>
+                        <tr><td>Taaffeite</td><td class="ior-value">1.720</td></tr>
+                        <tr><td>Tantalite</td><td class="ior-value">2.240</td></tr>
+                        <tr><td>Tanzanite</td><td class="ior-value">1.692 - 1.700</td></tr>
+                        <tr><td>Teflon</td><td class="ior-value">1.350 - 1.380</td></tr>
+                        <tr><td>Thomsonite</td><td class="ior-value">1.530</td></tr>
+                        <tr><td>Tiger eye</td><td class="ior-value">1.544</td></tr>
+                        <tr><td>Tin Iodide</td><td class="ior-value">2.106</td></tr>
+                        <tr><td>Titanium</td><td class="ior-value">2.160</td></tr>
+                        <tr><td>Topaz</td><td class="ior-value">1.607 - 1.627</td></tr>
+                        <tr><td>Topaz, Blue</td><td class="ior-value">1.610</td></tr>
+                        <tr><td>Topaz, Imperial</td><td class="ior-value">1.605 - 1.640</td></tr>
+                        <tr><td>Topaz, Pink</td><td class="ior-value">1.620</td></tr>
+                        <tr><td>Topaz, White</td><td class="ior-value">1.630</td></tr>
+                        <tr><td>Topaz, Yellow</td><td class="ior-value">1.620</td></tr>
+                        <tr><td>Tourmaline</td><td class="ior-value">1.603 - 1.655</td></tr>
+                        <tr><td>Tourmaline, Blue</td><td class="ior-value">1.610 - 1.640</td></tr>
+                        <tr><td>Tourmaline, Catseye</td><td class="ior-value">1.610 - 1.640</td></tr>
+                        <tr><td>Tourmaline, Green</td><td class="ior-value">1.610 - 1.640</td></tr>
+                        <tr><td>Tourmaline, Paraiba</td><td class="ior-value">1.610 - 1.650</td></tr>
+                        <tr><td>Tourmaline, Red</td><td class="ior-value">1.610 - 1.640</td></tr>
+                        <tr><td>Tremolite</td><td class="ior-value">1.600</td></tr>
+                        <tr><td>Tugtupite</td><td class="ior-value">1.496</td></tr>
+                        <tr><td>Turpentine</td><td class="ior-value">1.472</td></tr>
+                        <tr><td>Turquoise</td><td class="ior-value">1.610 - 1.650</td></tr>
+                    </tbody>
+                </table>
+            </section>
+
+            <section class="table-container">
+                <h2>IOR - Liste U</h2>
+                <table>
+                    <thead><tr><th>Matériau</th><th>IOR</th></tr></thead>
+                    <tbody>
+                        <tr><td>Ulexite</td><td class="ior-value">1.490</td></tr>
+                        <tr><td>Uvarovite</td><td class="ior-value">1.870</td></tr>
+                    </tbody>
+                </table>
+            </section>
+
+            <section class="table-container">
+                <h2>IOR - Liste V</h2>
+                <table>
+                    <thead><tr><th>Matériau</th><th>IOR</th></tr></thead>
+                    <tbody>
+                        <tr><td>Vacuum</td><td class="ior-value">1.000</td></tr>
+                        <tr><td>Variscite</td><td class="ior-value">1.550</td></tr>
+                        <tr><td>Vivianite</td><td class="ior-value">1.580</td></tr>
+                        <tr><td>Vodka</td><td class="ior-value">1.363</td></tr>
+                    </tbody>
+                </table>
+            </section>
+
+            <section class="table-container">
+                <h2>IOR - Liste W</h2>
+                <table>
+                    <thead><tr><th>Matériau</th><th>IOR</th></tr></thead>
+                    <tbody>
+                        <tr><td>Wardite</td><td class="ior-value">1.590</td></tr>
+                        <tr><td>Water (0 deg C)</td><td class="ior-value">1.333</td></tr>
+                        <tr><td>Water (100 deg C)</td><td class="ior-value">1.318</td></tr>
+                        <tr><td>Water (20 deg C)</td><td class="ior-value">1.333</td></tr>
+                        <tr><td>Water (gas)</td><td class="ior-value">1.000</td></tr>
+                        <tr><td>Water (35 deg C)</td><td class="ior-value">1.325</td></tr>
+                        <tr><td>Water Ice</td><td class="ior-value">1.310</td></tr>
+                        <tr><td>Wax (pariffin)</td><td class="ior-value">1.442 - 1.448</td></tr>
+                        <tr><td>Whisky</td><td class="ior-value">1.356</td></tr>
+                        <tr><td>Wulfenite</td><td class="ior-value">2.300</td></tr>
+                    </tbody>
+                </table>
+            </section>
+
+            <section class="table-container">
+                <h2>IOR - Liste Z</h2>
+                <table>
+                    <thead><tr><th>Matériau</th><th>IOR</th></tr></thead>
+                    <tbody>
+                        <tr><td>Zinc Crown Glass</td><td class="ior-value">1.517</td></tr>
+                        <tr><td>Zincite</td><td class="ior-value">2.010</td></tr>
+                        <tr><td>Zircon</td><td class="ior-value">1.777 - 1.987</td></tr>
+                        <tr><td>Zircon, High</td><td class="ior-value">1.960</td></tr>
+                        <tr><td>Zircon, Low</td><td class="ior-value">1.800</td></tr>
+                        <tr><td>Zirconia, Cubic</td><td class="ior-value">2.173 - 2.210</td></tr>
+                    </tbody>
+                </table>
+            </section>
+
+            </div><!-- /.ior-grid -->
+
+            <div class="no-results" id="noResults">Aucun matériau ne correspond à votre recherche.</div>
+
+        </div>
+
+        <section id="simulator-container">
+            <h2>Vue 3D temps réel</h2>
+
+            <div id="canvas-wrapper">
+                <canvas id="c"></canvas>
+                <div id="canvas-loader">Chargement de l'environnement…</div>
+            </div>
+
+            <div class="material-info">
+                <span class="swatch" id="matSwatch"></span>
+                <div>
+                    <span class="label">Matériau actif</span>
+                    <div class="name" id="matName">Verre (Défaut)</div>
+                </div>
+                <span class="type-badge" id="matType">Diélectrique</span>
+            </div>
+
+            <div class="live-stats">
+                <div class="stat highlight" id="statIorBox">
+                    <span class="stat-label">IOR</span>
+                    <div class="stat-value pink" id="statIor">1.500</div>
+                </div>
+                <div class="stat" id="statMetalBox">
+                    <span class="stat-label">Métal</span>
+                    <div class="stat-value" id="statMetal">0.00</div>
+                </div>
+                <div class="stat highlight" id="statTransmissionBox">
+                    <span class="stat-label">Transm.</span>
+                    <div class="stat-value" id="statTransmission">1.00</div>
+                </div>
+            </div>
+
+            <div class="slider-controls">
+                <label for="metalnessSlider">Métallicité <span id="metalnessValue">0.00</span></label>
+                <input type="range" id="metalnessSlider" min="0.0" max="1.0" step="0.01" value="0.0">
+                <div class="slider-labels">
+                    <span>Diélectrique</span>
+                    <span>Métal</span>
+                </div>
+            </div>
+
+            <div class="slider-controls">
+                <label for="roughnessSlider">Roughness <span id="roughnessValue">0.00</span></label>
+                <input type="range" id="roughnessSlider" min="0.0" max="1.0" step="0.01" value="0.0">
+                <div class="slider-labels">
+                    <span>Poli</span>
+                    <span>Mat</span>
+                </div>
+            </div>
+
+            <div class="slider-controls" id="transmission-slider-group">
+                <label for="transmissionSlider">Transmission <span id="transmissionValue">1.00</span></label>
+                <input type="range" id="transmissionSlider" min="0.0" max="1.0" step="0.01" value="1.0">
+                <div class="slider-labels">
+                    <span>Opaque</span>
+                    <span>Transparent</span>
+                </div>
+            </div>
+
+            <div class="slider-controls" id="ior-slider-group">
+                <label for="iorSlider">IOR <span id="iorValue">1.50</span></label>
+                <input type="range" id="iorSlider" min="1.0" max="2.42" step="0.01" value="1.50">
+                <div class="slider-labels">
+                    <span>1.0 (Air)</span>
+                    <span>2.42 (Diamant)</span>
+                </div>
+            </div>
+
+            <button id="downloadButton">Télécharger la recette (.json)</button>
+
+        </section>
+    </main>
+
+    <footer>
+        <p>Données extraites de <a href="https://pixelandpoly.com/ior.html" target="_blank" rel="noopener">pixelandpoly.com/ior.html</a> — Surr Mini Tools by <a href="https://www.surrendr.studio" target="_blank" rel="noopener">Surrendr Studio</a></p>
+    </footer>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <script src="https://unpkg.com/three@0.128.0/examples/js/geometries/TeapotGeometry.js"></script>
+
+    <script src="js/app.js"></script>
+
+</body>
+</html>
