@@ -97,25 +97,6 @@ Le simulateur utilise le matériau physique de Three.js (`MeshPhysicalMaterial`)
 
 Les paramètres réagissent en temps réel grâce à une interpolation linéaire (`lerp`) entre l'état courant et la cible, ce qui donne des transitions douces lorsqu'on saute d'un matériau à un autre.
 
----
-
-## Déploiement (GitHub Pages)
-
-1. Va dans **Settings → Pages** sur le dépôt GitHub.
-2. Sous **Source**, choisis la branche `main` et le dossier `/ (root)`.
-3. Clique sur **Save**.
-4. Au bout de quelques secondes, le site est disponible sur :
-   **https://surrendrart-hub.github.io/Surr-MiniTool-ior-Viewer/**
-
-### Publier les changements (Windows)
-
-Un script `publish.bat` est fourni :
-
-```bat
-publish.bat
-```
-
-Il initialise Git si nécessaire, configure le remote, demande un message de commit et pousse vers `origin/main`.
 
 ---
 
